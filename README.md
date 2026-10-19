@@ -18,6 +18,34 @@ python analysis.py
 
 **Results:** Results are written to `results.json`, and a latency chart is saved to `figures/`.
 
+## Results (latest run)
+
+On a synthetic perturbed-grid road network, mean RNN query latency averaged over densities and seeds 42–44 fell from 49.1 ms for the standard exhaustive Dijkstra-verification baseline to 5.3 ms for the landmark-pruned index, a 9.2× speedup with 100% exact-answer agreement.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 49.14 |
+| improved_score | 5.318 |
+| improvement | 43.82 |
+| baseline_score_std | 0.1567 |
+| improved_score_std | 0.7139 |
+| speedup | 9.241 |
+| baseline_expansions_per_query | 120 |
+| improved_expansions_per_query | 12.71 |
+| baseline_build_ms | 0 |
+| improved_build_ms | 7.285 |
+| exact_match_rate | 1 |
+| baseline_ms_density_0.01 | 14.66 |
+| improved_ms_density_0.01 | 2.104 |
+| baseline_ms_density_0.03 | 44.45 |
+| improved_ms_density_0.03 | 4.529 |
+| baseline_ms_density_0.06 | 88.31 |
+| improved_ms_density_0.06 | 9.32 |
+
+Run on 2026-10-19. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Simulated network, not the paper's dataset; the paper's adjustable-tree method is not implemented. No model is trained and nothing is tuned: landmark count is fixed a priori. The train split is only warm-up queries. Latency is wall clock on a shared CI runner and is noisy. Index build time is reported separately and not included in query latency. Exact answer agreement is checked on every timed query.
+
 ## Reference
 
 This project is motivated by the following paper:
