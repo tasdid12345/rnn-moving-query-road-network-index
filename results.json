@@ -1,0 +1,37 @@
+{
+  "question": "Does a landmark-pruned index answer reverse-nearest-neighbour queries on a road network faster than a standard exhaustive baseline, at the same exact answers, as the density of data objects grows?",
+  "method": "Simulated perturbed-grid road network; moving RNN queries from random walks; exact answers verified identical; latency compared across object densities and seeds 42, 43, 44.",
+  "dataset": {
+    "name": "Synthetic perturbed grid road network (networkx grid, random edge removal and weights)",
+    "source_url": "https://networkx.org/",
+    "n_rows": 3596,
+    "n_train": 540,
+    "n_test": 1800,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "mean query latency (ms), averaged over densities and seeds",
+  "higher_is_better": false,
+  "baseline": "Exhaustive exact RNN check: full Dijkstra from every data object per query, no index.",
+  "improved": "Adds a landmark index: triangle-inequality lower/upper bounds prune objects before the same exact Dijkstra verification runs only on survivors.",
+  "metrics": {
+    "baseline_score": 49.13953267333304,
+    "improved_score": 5.317614291110746,
+    "improvement": 43.8219183822223,
+    "baseline_score_std": 0.15668727624827222,
+    "improved_score_std": 0.7138952773687299,
+    "speedup": 9.240898264373506,
+    "baseline_expansions_per_query": 120.0,
+    "improved_expansions_per_query": 12.705555555555556,
+    "baseline_build_ms": 0.0,
+    "improved_build_ms": 7.284820666662817,
+    "exact_match_rate": 1.0,
+    "baseline_ms_density_0.01": 14.659043513332945,
+    "improved_ms_density_0.01": 2.1044649216663913,
+    "baseline_ms_density_0.03": 44.44836056999981,
+    "improved_ms_density_0.03": 4.52857233333269,
+    "baseline_ms_density_0.06": 88.31119393666638,
+    "improved_ms_density_0.06": 9.319805618333158
+  },
+  "notes": "Simulated network, not the paper's dataset; the paper's adjustable-tree method is not implemented. No model is trained and nothing is tuned: landmark count is fixed a priori. The train split is only warm-up queries. Latency is wall clock on a shared CI runner and is noisy. Index build time is reported separately and not included in query latency. Exact answer agreement is checked on every timed query."
+}
